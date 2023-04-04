@@ -58,7 +58,7 @@ const takeScreenshot = async () => {
   for (let i = 0; i < link.length; i++) {
     await page.goto(link[i]);
     await page.screenshot({
-      path: `screenshot_${i}.png`,
+      path: `screenshotsss_${i}.png`,
       fullPage: false,
     });
   }
