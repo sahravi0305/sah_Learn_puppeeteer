@@ -46,7 +46,7 @@ const takeScreenshot = async () => {
   const page = await browser.newPage();
   await page.goto("https://gaana.com/lyrics");
 
-  const rows = await page.$$eval("div.lry_ul a");
+  const rows = await page.$$("div.lry_ul a");
   // const rows = document.querySelectorAll("div.lry_ul a");
   const link = [];
   for (let i = 0; i < rows.length; i++) {
