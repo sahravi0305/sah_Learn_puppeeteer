@@ -46,19 +46,22 @@ const takeScreenshot = async () => {
   const page = await browser.newPage();
   await page.goto("https://gaana.com/lyrics");
 
-  const anchorElements = await page.$$("div.lry_ul a");
-
-  // Loop through each anchor element and take a screenshot of the page it links to
-  for (let i = 0; i < anchorElements.length; i++) {
-    const href = await anchorElements[i].getProperty("href");
-    const url = await href.jsonValue();
-
-    const newPage = await browser.newPage();
-    await newPage.goto(url);
-    await newPage.screenshot({ path: `screensho0t_${i}.png` });
-    await newPage.close();
+  const rows = await page.$$eval("div.lry_ul a");
+  // const rows = document.querySelectorAll("div.lry_ul a");
+  const link = [];
+  for (let i = 0; i < rows.length; i++) {
+    link.push(rows[i].href);
   }
 
+  console.log(link);
+
+  for (let i = 0; i < link.length; i++) {
+    await page.goto(link[i]);
+    await page.screenshot({
+      path: `screenshot_${i}.png`,
+      fullPage: false,
+    });
+  }
   await browser.close();
 };
 takeScreenshot();
